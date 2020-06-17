@@ -1,10 +1,13 @@
-FROM node:13.10.1-alpine
-RUN npm config set registry https://registry.npm.taobao.org
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && apk add git
-WORKDIR /app
-RUN git clone https://gitee.com/consolelog/demo-config-frontend.git
-RUN cd demo-config-frontend && git checkout tags/1.0.0
-RUN cd demo-config-frontend && npm install && npm run build
-RUN ls demo-config-frontend
+FROM registry.cn-beijing.aliyuncs.com/codeforfun/config-server:1.0.0
 
-#FROM registry.cn-beijing.aliyuncs.com/codeforfun/docker-supervisor-nginx-java:latest
+FROM registry.cn-beijing.aliyuncs.com/codeforfun/config-server-frontend:1.0.0
+
+FROM registry.cn-beijing.aliyuncs.com/codeforfun/docker-supervisor-nginx-java:latest
+ENV LANG C.UTF-8
+
+WORKDIR /app
+COPY --from=0 /app/app.jar /app/data/app.jar
+COPY --from=1 /usr/share/nginx/html /app/data/html
+COPY nginx.conf /usr/local/nginx/conf/nginx.conf
+
+CMD ["supervisord", "-n", "-c", "/app/conf/supervisord.conf"]
