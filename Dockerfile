@@ -8,6 +8,7 @@ ENV LANG C.UTF-8
 WORKDIR /app
 COPY --from=0 /app/app.jar /app/data/app.jar
 COPY --from=1 /usr/share/nginx/html /app/data/html
-COPY nginx.conf /usr/local/nginx/conf/nginx.conf
+COPY conf/nginx.conf /usr/local/nginx/conf/nginx.conf
+COPY conf/supervisord.conf /app/conf/supervisord.conf
 
 CMD ["supervisord", "-n", "-c", "/app/conf/supervisord.conf"]

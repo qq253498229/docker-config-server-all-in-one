@@ -1,2 +1,5 @@
 #!/usr/bin/env bash
-docker build . -t test:latest
+rm -rf docs
+mkdir -p docs/images
+cp -r source/css/images/ docs/images
+asciidoctor ./source/cn/index.adoc -o ./docs/index.html

@@ -1,20 +1,16 @@
 version: "3"
 services:
-  config-all:
+  config-server-all:
     image: registry.cn-beijing.aliyuncs.com/codeforfun/config-all-in-one:1.0.0
-    build: .
-    container_name: config-all
     environment:
-      SERVER_PORT: 8888
       MYSQL_HOST: mysql
-      MYSQL_PORT: 3306
-      MYSQL_DATABASE: application_configuration
-      MYSQL_USERNAME: root
-      MYSQL_PASSWORD: root
-      DISCOVERY_TYPE: url
     ports:
       - "80:80"
-networks:
-  default:
-    external:
-      name: local
+  mysql:
+    image: mysql:8.0.20
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - "./schema.sql:/docker-entrypoint-initdb.d/schema.sql"
+    ports:
+      - "3306:3306"
