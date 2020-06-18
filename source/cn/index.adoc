@@ -1,8 +1,9 @@
 = Spring Cloud 配置中心
 :toc: left
 :docinfo: shared
-:nofooter:
+:docinfodir: ../css
 :stylesheet: ../css/adoc-github.css
+:nofooter:
 
 == 快速开始
 
