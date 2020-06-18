@@ -746,7 +746,11 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 <li><a href="#_启动配置中心">启动配置中心</a></li>
 </ul>
 </li>
-<li><a href="#_配置中心后端">配置中心后端</a></li>
+<li><a href="#_配置中心后端">配置中心后端</a>
+<ul class="sectlevel2">
+<li><a href="#_后端支持参数">后端支持参数</a></li>
+</ul>
+</li>
 <li><a href="#_配置中心前端">配置中心前端</a></li>
 <li><a href="#_源码说明">源码说明</a></li>
 <li><a href="#_开源协议">开源协议</a></li>
@@ -780,7 +784,87 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 <p>快速开始中使用的镜像，本质上就是提取前后端镜像中的业务代码，打包成一个新的镜像。 所以后端的配置同样可以套用到快速开始中。</p>
 </div>
 <div class="paragraph">
-<p>后端采用 <code>SpringBoot 2.3.1.RELEASE</code>、 <code>SpringCloud Hoxton.SR5</code> 版本开发，数据库使用的是 <code>MySQL</code>，注册中心支持 <code>Eureka</code> 和 <code>Consul</code>。如果没有满足您的需求，可以在 <a href="#contribution">贡献指南</a> 中查看issues的提交地址或自行修改。</p>
+<p>后端采用 <code>SpringBoot 2.3.1.RELEASE</code>、 <code>SpringCloud Hoxton.SR5</code> 版本开发，数据库使用的是 <code>MySQL</code>，注册中心支持 <code>Eureka</code> 和 <code>Consul</code>。如果没有满足您的需求，可以在 <a href="#contribution">贡献指南</a> 中查看并提交issues或自行修改。</p>
+</div>
+<div class="sect2">
+<h3 id="_后端支持参数">后端支持参数</h3>
+<table class="tableblock frame-all grid-all fit-content">
+<caption class="title">Table 1. 后端支持参数</caption>
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">参数名</th>
+<th class="tableblock halign-left valign-top">默认值</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SERVER_PORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8888</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">后端暴露的端口</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MYSQL_HOST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">数据库地址</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MYSQL_PORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3306</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">数据库端口号</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MYSQL_DATABASE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application_configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">数据库名</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MYSQL_USERNAME</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">root</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">数据库登录名</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MYSQL_PASSWORD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">root</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">数据库登录密码</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">APPLICATION_NAME</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">config-server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SpringBoot中的 <code>spring.application.name</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DISCOVERY_TYPE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">url</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">注册中心类型，url/eureka/consul，其中url为不使用注册中心</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONSUL_TOKEN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">B595BC8E-DE44-4510-82D7-ECF5657F4D4D</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当 DISCOVERY_TYPE 为 <code>consul</code> 时生效，consul的 <code>acl_token</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONSUL_HOST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当 DISCOVERY_TYPE 为 <code>consul</code> 时生效，consul的地址</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONSUL_PORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当 DISCOVERY_TYPE 为 <code>consul</code> 时生效，consul的端口号</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EUREKA_SERVICE_URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://admin:admin@localhost:8761/eureka/" class="bare">http://admin:admin@localhost:8761/eureka/</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当 DISCOVERY_TYPE 为 <code>eureka</code> 时生效，eureka 的注册地址</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -815,7 +899,7 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 <h2 id="_开源协议">开源协议</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>本项目遵循 MIT 协议，虽然我也不知道这个协议是啥意思，但是原则上你可以随便使用本项目，当然前提是不触犯法律: <a href="http://xingfa.org/">中华人民共和国刑法</a> 、 <a href="https://paperclip.feishu.cn/file/boxcnZGTyENVDRcBIRUlFtM0YVf">中华人民共和国民法典(草案)</a>。</p>
+<p>本项目遵循 MIT 协议，虽然我也不知道这个协议具体是啥意思，但是原则上你可以随便使用本项目，当然前提是不触犯法律: <a href="http://xingfa.org/">中华人民共和国刑法</a> 、 <a href="https://paperclip.feishu.cn/file/boxcnZGTyENVDRcBIRUlFtM0YVf">中华人民共和国民法典(草案)</a>。</p>
 </div>
 </div>
 </div>
