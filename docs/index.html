@@ -627,7 +627,6 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 
 .conum { display: inline-block; color: white !important; background-color: #333333; -webkit-border-radius: 100px; border-radius: 100px; text-align: center; width: 20px; height: 20px; font-size: 12px; font-weight: bold; line-height: 20px; font-family: Arial, sans-serif; font-style: normal; position: relative; top: -2px; letter-spacing: -1px; }
 .conum * { color: white !important; }
-.conum + b { display: none; }
 .conum:after { content: attr(data-value); }
 .conum:not([data-value]):empty { display: none; }
 
@@ -803,9 +802,6 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 <div class="sect2">
 <h3 id="_客户端连接配置中心读取配置">客户端连接配置中心读取配置</h3>
 <div class="paragraph">
-<p>默认情况下，配置中心不使用任何注册中心，所以客户端应该使用 <code>地址+端口号</code> 的方式直连配置中心。</p>
-</div>
-<div class="paragraph">
 <p>首先客户端需要在 <code>pom.xml</code> 中添加依赖:</p>
 </div>
 <div class="listingblock">
@@ -848,12 +844,25 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 <pre>spring:
   cloud:
     config:
-      uri: http://localhost
+      uri: http://localhost <b class="conum">(1)</b>
   application:
-    name: TestProject_UserService
+    name: TestProject_UserService <b class="conum">(2)</b>
   profiles:
-    active: ProductionEnv</pre>
+    active: ProductionEnv <b class="conum">(3)</b></pre>
 </div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>默认情况下，配置中心不使用任何注册中心，所以客户端应该使用 <code>地址+端口号</code> 的方式直连配置中心。</p>
+</li>
+<li>
+<p>使用 <code>项目编号_应用编号</code> 的方式区分项目和应用</p>
+</li>
+<li>
+<p><code>环境编号</code></p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>之后启动客户端可以发现，已经从配置中心中读取了对应的配置:</p>

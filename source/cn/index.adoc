@@ -27,8 +27,6 @@ image::picture/2.png[]
 
 === 客户端连接配置中心读取配置
 
-默认情况下，配置中心不使用任何注册中心，所以客户端应该使用 `地址+端口号` 的方式直连配置中心。
-
 首先客户端需要在 `pom.xml` 中添加依赖:
 
 ----
@@ -48,12 +46,15 @@ NOTE: `bootstrap.yml` 文件只在示例中使用，实际开发/部署时可以
 spring:
   cloud:
     config:
-      uri: http://localhost
+      uri: http://localhost <!--1-->
   application:
-    name: TestProject_UserService
+    name: TestProject_UserService <!--2-->
   profiles:
-    active: ProductionEnv
+    active: ProductionEnv <!--3-->
 ----
+<1> 默认情况下，配置中心不使用任何注册中心，所以客户端应该使用 `地址+端口号` 的方式直连配置中心。
+<2> 使用 `项目编号_应用编号` 的方式区分项目和应用
+<3> `环境编号`
 
 之后启动客户端可以发现，已经从配置中心中读取了对应的配置:
 
