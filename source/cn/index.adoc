@@ -58,7 +58,7 @@
 
 |DISCOVERY_TYPE
 |url
-|注册中心类型，url/eureka/consul，其中url为不使用注册中心
+|注册中心类型，`url/eureka/consul`，其中url为不使用注册中心
 
 |CONSUL_TOKEN
 |B595BC8E-DE44-4510-82D7-ECF5657F4D4D
@@ -79,7 +79,23 @@
 
 == 配置中心前端
 
-== 源码说明
+前端使用了 https://angular.cn/[Angular 9] 、 https://ng.ant.design/[NG-ZORRO]， 以及 https://github.com/brtnshrdr/angular2-hotkeys#readme[angular2-hotkeys] 、 https://lodash.com/[lodash] 等。
+
+=== 前端支持参数
+
+.前端支持参数
+[%autowidth]
+|===
+| 参数名 | 默认值 | 说明
+
+|BACKEND_PATH
+|http://config:8888
+|Nginx中反向代理的后端地址
+|===
+
+NOTE: 注意这个参数在快速启动中不生效，因为前后端使用的是同一个容器，所以固定为 http://localhost:8888
+
+== 源码地址
 
 源码托管在 https://gitee.com/[Gitee] 中：
 

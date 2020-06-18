@@ -751,8 +751,12 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 <li><a href="#_后端支持参数">后端支持参数</a></li>
 </ul>
 </li>
-<li><a href="#_配置中心前端">配置中心前端</a></li>
-<li><a href="#_源码说明">源码说明</a></li>
+<li><a href="#_配置中心前端">配置中心前端</a>
+<ul class="sectlevel2">
+<li><a href="#_前端支持参数">前端支持参数</a></li>
+</ul>
+</li>
+<li><a href="#_源码地址">源码地址</a></li>
 <li><a href="#_开源协议">开源协议</a></li>
 <li><a href="#_更新日志">更新日志</a></li>
 <li><a href="#contribution">贡献指南</a></li>
@@ -841,7 +845,7 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DISCOVERY_TYPE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">url</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">注册中心类型，url/eureka/consul，其中url为不使用注册中心</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">注册中心类型，<code>url/eureka/consul</code>，其中url为不使用注册中心</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CONSUL_TOKEN</p></td>
@@ -871,11 +875,50 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 <div class="sect1">
 <h2 id="_配置中心前端">配置中心前端</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>前端使用了 <a href="https://angular.cn/">Angular 9</a> 、 <a href="https://ng.ant.design/">NG-ZORRO</a>， 以及 <a href="https://github.com/brtnshrdr/angular2-hotkeys#readme">angular2-hotkeys</a> 、 <a href="https://lodash.com/">lodash</a> 等。</p>
+</div>
+<div class="sect2">
+<h3 id="_前端支持参数">前端支持参数</h3>
+<table class="tableblock frame-all grid-all fit-content">
+<caption class="title">Table 2. 前端支持参数</caption>
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">参数名</th>
+<th class="tableblock halign-left valign-top">默认值</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BACKEND_PATH</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://config:8888" class="bare">http://config:8888</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nginx中反向代理的后端地址</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+注意这个参数在快速启动中不生效，因为前后端使用的是同一个容器，所以固定为 <a href="http://localhost:8888" class="bare">http://localhost:8888</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_源码说明">源码说明</h2>
+<h2 id="_源码地址">源码地址</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>源码托管在 <a href="https://gitee.com/">Gitee</a> 中：</p>
