@@ -744,6 +744,8 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 <li><a href="#_快速开始">快速开始</a>
 <ul class="sectlevel2">
 <li><a href="#_启动配置中心">启动配置中心</a></li>
+<li><a href="#_创建配置并关联应用">创建配置并关联应用</a></li>
+<li><a href="#_客户端连接配置中心读取配置">客户端连接配置中心读取配置</a></li>
 </ul>
 </li>
 <li><a href="#_配置中心后端">配置中心后端</a>
@@ -777,6 +779,114 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 </div>
 <div class="paragraph">
 <p>启动服务后即可访问 <a href="http://localhost" class="bare">http://localhost</a> 来管理配置中心了</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_创建配置并关联应用">创建配置并关联应用</h3>
+<div class="paragraph">
+<p>为了适配多项目，所以进入页面后首先需要创建一个项目。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="picture/1.png" alt="1">
+</div>
+</div>
+<div class="paragraph">
+<p>创建项目后可以根据需求创建对应的环境，以及每个环境中的配置。应用则代表具体的服务，在应用详情中将应用和配置进行关联，之后就可以进行客户端连接了。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="picture/2.png" alt="2">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_客户端连接配置中心读取配置">客户端连接配置中心读取配置</h3>
+<div class="paragraph">
+<p>默认情况下，配置中心不使用任何注册中心，所以客户端应该使用 <code>地址+端口号</code> 的方式直连配置中心。</p>
+</div>
+<div class="paragraph">
+<p>首先客户端需要在 <code>pom.xml</code> 中添加依赖:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-starter-config&lt;/artifactId&gt;
+&lt;/dependency&gt;</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+该依赖的版本号应该从 SpringCloudDependencies 中继承
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>然后创建 <code>bootstrap.yml</code> 文件:</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<code>bootstrap.yml</code> 文件只在示例中使用，实际开发/部署时可以根据需求自行配置，只需在 <code>spring.profiles.active</code> 中包含对应的环境编号即可。
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>spring:
+  cloud:
+    config:
+      uri: http://localhost
+  application:
+    name: TestProject_UserService
+  profiles:
+    active: ProductionEnv</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>之后启动客户端可以发现，已经从配置中心中读取了对应的配置:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.1.RELEASE)
+
+2020-06-18 15:40:45.422  INFO 61911 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://localhost
+2020-06-18 15:40:45.553  WARN 61911 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Could not locate PropertySource: Could not extract response: no suitable HttpMessageConverter found for response type [class org.springframework.cloud.config.environment.Environment] and content type [text/html]
+2020-06-18 15:40:45.556  INFO 61911 --- [           main] com.example.demo.DemoApplication         : The following profiles are active: ProductionEnv
+2020-06-18 15:40:46.205  INFO 61911 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=9451707b-647f-3f81-8517-6d49f66f4a74
+2020-06-18 15:40:46.405  INFO 61911 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 30006 (http)
+2020-06-18 15:40:46.413  INFO 61911 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-06-18 15:40:46.413  INFO 61911 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.36]
+2020-06-18 15:40:46.494  INFO 61911 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-06-18 15:40:46.495  INFO 61911 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 928 ms
+2020-06-18 15:40:46.787  INFO 61911 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-18 15:40:47.180  INFO 61911 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-06-18 15:40:47.264  INFO 61911 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 30006 (http) with context path ''
+2020-06-18 15:40:47.279  INFO 61911 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication in 2.716 seconds (JVM running for 3.584)
+2020-06-18 15:40:47.539  INFO 61911 --- [on(1)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-06-18 15:40:47.539  INFO 61911 --- [on(1)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-06-18 15:40:47.542  INFO 61911 --- [on(2)-127.0.0.1] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://localhost
+2020-06-18 15:40:47.548  INFO 61911 --- [on(1)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+2020-06-18 15:40:47.549  WARN 61911 --- [on(2)-127.0.0.1] c.c.c.ConfigServicePropertySourceLocator : Could not locate PropertySource: Could not extract response: no suitable HttpMessageConverter found for response type [class org.springframework.cloud.config.environment.Environment] and content type [text/html]</code></pre>
+</div>
 </div>
 </div>
 </div>

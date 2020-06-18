@@ -1,7 +1,8 @@
 version: "3"
 services:
   config-server-all:
-    image: registry.cn-beijing.aliyuncs.com/codeforfun/config-all-in-one:1.0.0
+    image: registry.cn-beijing.aliyuncs.com/codeforfun/config-server-all-in-one:1.0.1
+    build: .
     environment:
       MYSQL_HOST: mysql
     ports:
