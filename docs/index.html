@@ -771,6 +771,18 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 <div class="paragraph">
 <p>本项目最快的启动方式就是使用 <a href="https://www.docker.com/"><code>docker</code></a>，并且 <code>docker</code> 官方提供的 <a href="https://docs.docker.com/compose/"><code>docker-compose</code></a> 更会简化部署流程。</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+如果您熟悉Spring Cloud 以及 NodeJS ，也可以直接拉取本项目的前后端源代码来启动
+</td>
+</tr>
+</table>
+</div>
 <div class="sect2">
 <h3 id="_启动配置中心">启动配置中心</h3>
 <div class="paragraph">
@@ -964,27 +976,52 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DISCOVERY_TYPE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">url</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">注册中心类型，<code>url/eureka/consul</code>，其中url为不使用注册中心</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">注册中心类型，<code>url/eureka/consul</code>，其中 url 表示不使用注册中心</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CONSUL_TOKEN</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">B595BC8E-DE44-4510-82D7-ECF5657F4D4D</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">当 DISCOVERY_TYPE 为 <code>consul</code> 时生效，consul的 <code>acl_token</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当 DISCOVERY_TYPE 为 <code>consul</code> 时生效，表示 consul的 <code>acl_token</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CONSUL_HOST</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8500</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">当 DISCOVERY_TYPE 为 <code>consul</code> 时生效，consul的地址</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当 DISCOVERY_TYPE 为 <code>consul</code> 时生效，表示 consul的地址</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CONSUL_PORT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8500</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">当 DISCOVERY_TYPE 为 <code>consul</code> 时生效，consul的端口号</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当 DISCOVERY_TYPE 为 <code>consul</code> 时生效，表示 consul的端口号</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EUREKA_SERVICE_URL</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://admin:admin@localhost:8761/eureka/" class="bare">http://admin:admin@localhost:8761/eureka/</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">当 DISCOVERY_TYPE 为 <code>eureka</code> 时生效，eureka 的注册地址</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当 DISCOVERY_TYPE 为 <code>eureka</code> 时生效，表示 eureka 的注册地址</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MONITOR_TYPE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">通知推送类型，<code>none/rabbitmq</code>，其中 none 表示不使用通知推送功能</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RABBITMQ_HOST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当 MONITOR_TYPE 为 <code>rabbitmq</code> 时生效，表示 rabbitmq 的地址</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RABBITMQ_PORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5672</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当 MONITOR_TYPE 为 <code>rabbitmq</code> 时生效，表示 rabbitmq 的端口号</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RABBITMQ_USERNAME</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">admin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当 MONITOR_TYPE 为 <code>rabbitmq</code> 时生效，表示 rabbitmq 的用户名</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RABBITMQ_PASSWORD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">admin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当 MONITOR_TYPE 为 <code>rabbitmq</code> 时生效，表示 rabbitmq 的密码</p></td>
 </tr>
 </tbody>
 </table>

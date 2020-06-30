@@ -9,6 +9,8 @@
 
 本项目最快的启动方式就是使用 https://www.docker.com/[`docker`]，并且 `docker` 官方提供的 https://docs.docker.com/compose/[`docker-compose`] 更会简化部署流程。
 
+NOTE: 如果您熟悉Spring Cloud 以及 NodeJS ，也可以直接拉取本项目的前后端源代码来启动
+
 === 启动配置中心
 
 使用本项目提供的 https://raw.githubusercontent.com/qq253498229/docker-config-server-all-in-one/master/docker-compose.yml[`docker-compose`](其中 https://raw.githubusercontent.com/qq253498229/docker-config-server-all-in-one/master/schema.sql[`schema.sql`]必须和 `docker-compose.yml` 放在同一目录) 可以一键创建配置中心后端以及依赖的数据库，并初始化数据库结构。
@@ -131,23 +133,43 @@ spring:
 
 |DISCOVERY_TYPE
 |url
-|注册中心类型，`url/eureka/consul`，其中url为不使用注册中心
+|注册中心类型，`url/eureka/consul`，其中 url 表示不使用注册中心
 
 |CONSUL_TOKEN
 |B595BC8E-DE44-4510-82D7-ECF5657F4D4D
-|当 DISCOVERY_TYPE 为 `consul` 时生效，consul的 `acl_token`
+|当 DISCOVERY_TYPE 为 `consul` 时生效，表示 consul的 `acl_token`
 
 |CONSUL_HOST
 |8500
-|当 DISCOVERY_TYPE 为 `consul` 时生效，consul的地址
+|当 DISCOVERY_TYPE 为 `consul` 时生效，表示 consul的地址
 
 |CONSUL_PORT
 |8500
-|当 DISCOVERY_TYPE 为 `consul` 时生效，consul的端口号
+|当 DISCOVERY_TYPE 为 `consul` 时生效，表示 consul的端口号
 
 |EUREKA_SERVICE_URL
 |http://admin:admin@localhost:8761/eureka/
-|当 DISCOVERY_TYPE 为 `eureka` 时生效，eureka 的注册地址
+|当 DISCOVERY_TYPE 为 `eureka` 时生效，表示 eureka 的注册地址
+
+|MONITOR_TYPE
+| none
+| 通知推送类型，`none/rabbitmq`，其中 none 表示不使用通知推送功能
+
+|RABBITMQ_HOST
+| localhost
+| 当 MONITOR_TYPE 为 `rabbitmq` 时生效，表示 rabbitmq 的地址
+
+|RABBITMQ_PORT
+| 5672
+| 当 MONITOR_TYPE 为 `rabbitmq` 时生效，表示 rabbitmq 的端口号
+
+|RABBITMQ_USERNAME
+| admin
+| 当 MONITOR_TYPE 为 `rabbitmq` 时生效，表示 rabbitmq 的用户名
+
+|RABBITMQ_PASSWORD
+| admin
+| 当 MONITOR_TYPE 为 `rabbitmq` 时生效，表示 rabbitmq 的密码
 |===
 
 == 配置中心前端
