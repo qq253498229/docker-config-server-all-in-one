@@ -170,6 +170,14 @@ spring:
 |RABBITMQ_PASSWORD
 | admin
 | 当 MONITOR_TYPE 为 `rabbitmq` 时生效，表示 rabbitmq 的密码
+
+|RABBITMQ_EXCHANGE_NAME
+| config-server-exchange
+| 当 MONITOR_TYPE 为 rabbitmq 时生效，表示 rabbitmq 的交换机名称
+
+|RABBITMQ_QUEUE_NAME
+| config-server-queue
+| 当 MONITOR_TYPE 为 rabbitmq 时生效，表示 rabbitmq 的队列名称。最终队列名为：`${RABBITMQ_EXCHANGE_NAME}.${RABBITMQ_QUEUE_NAME}`
 |===
 
 == 配置中心前端
@@ -189,6 +197,10 @@ spring:
 |===
 
 NOTE: 注意这个参数在快速启动中不生效，因为前后端使用的是同一个容器，所以固定为 http://localhost:8888
+
+== 推送通知功能
+
+后端配置 `MONITOR_TYPE` 参数为 `"rabbitmq"` ，并配置rabbitmq的必要参数 `RABBITMQ_HOST` 、`RABBITMQ_PORT`、`RABBITMQ_USERNAME`、`RABBITMQ_PASSWORD` 之后，即可开启推送通知功能，此时后端会自动向rabbitmq注册一条
 
 == 源码地址
 
