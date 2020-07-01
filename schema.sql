@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `system_property`
 (
     `property_id`        bigint                                  NOT NULL auto_increment,
     `property_key`       varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '属性名',
-    `property_value`     varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '属性值',
+    `property_value`     varchar(2000) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '属性值',
     `property_type`      varchar(50) COLLATE utf8mb4_unicode_ci  DEFAULT NULL COMMENT 'STRING,INTEGER,BOOLEAN',
     `property_config_id` bigint                                  NOT NULL COMMENT '配置id(外键)',
     PRIMARY KEY (`property_id`),
