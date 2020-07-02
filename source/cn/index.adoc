@@ -90,13 +90,15 @@ spring:
 2020-06-18 15:40:47.549  WARN 61911 --- [on(2)-127.0.0.1] c.c.c.ConfigServicePropertySourceLocator : Could not locate PropertySource: Could not extract response: no suitable HttpMessageConverter found for response type [class org.springframework.cloud.config.environment.Environment] and content type [text/html]
 ----
 
-== 配置中心后端
+== 配置中心参数
 
 快速开始中使用的镜像，本质上就是提取前后端镜像中的业务代码，打包成一个新的镜像。 所以后端的配置同样可以套用到快速开始中。
 
-后端采用 `SpringBoot 2.3.1.RELEASE`、 `SpringCloud Hoxton.SR5` 版本开发，数据库使用的是 `MySQL`，注册中心支持 `Eureka` 和 `Consul`。如果没有满足您的需求，可以在 <<contribution>> 中查看并提交issues或自行修改。
+后端使用了 `SpringBoot 2.3.1.RELEASE`、 `SpringCloud Hoxton.SR5` 版本开发，数据库使用的是 `MySQL`，注册中心支持 `Eureka` 和 `Consul`，推送通知队列使用的时 `RabbitMQ`。如果没有满足您的需求，可以在 <<contribution>> 中查看并提交issues或自行修改。
 
-=== 后端支持参数
+前端使用了 https://angular.cn/[Angular 9] 、 https://ng.ant.design/[NG-ZORRO]， 以及 https://github.com/brtnshrdr/angular2-hotkeys#readme[angular2-hotkeys] 、 https://lodash.com/[lodash] 等。
+
+=== 后端参数
 
 .后端支持参数
 [%autowidth]
@@ -173,18 +175,10 @@ spring:
 
 |RABBITMQ_EXCHANGE_NAME
 | config-server-exchange
-| 当 MONITOR_TYPE 为 rabbitmq 时生效，表示 rabbitmq 的交换机名称
-
-|RABBITMQ_QUEUE_NAME
-| config-server-queue
-| 当 MONITOR_TYPE 为 rabbitmq 时生效，表示 rabbitmq 的队列名称。最终队列名为：`${RABBITMQ_EXCHANGE_NAME}.${RABBITMQ_QUEUE_NAME}`
+| 当 MONITOR_TYPE 为 `rabbitmq` 时生效，表示 rabbitmq 的交换机名称
 |===
 
-== 配置中心前端
-
-前端使用了 https://angular.cn/[Angular 9] 、 https://ng.ant.design/[NG-ZORRO]， 以及 https://github.com/brtnshrdr/angular2-hotkeys#readme[angular2-hotkeys] 、 https://lodash.com/[lodash] 等。
-
-=== 前端支持参数
+=== 前端参数
 
 .前端支持参数
 [%autowidth]
@@ -200,7 +194,30 @@ NOTE: 注意这个参数在快速启动中不生效，因为前后端使用的�
 
 == 推送通知功能
 
-后端配置 `MONITOR_TYPE` 参数为 `"rabbitmq"` ，并配置rabbitmq的必要参数 `RABBITMQ_HOST` 、`RABBITMQ_PORT`、`RABBITMQ_USERNAME`、`RABBITMQ_PASSWORD` 之后，即可开启推送通知功能，此时后端会自动向rabbitmq注册一条
+推送通知功能可以在配置发生改变后，实时的通知客户端动态的读取最新配置。
+
+使用推送通知功能需要将服务器端和客户端连接到同一个 rabbitmq 队列，然后依赖 `spring-cloud-starter-bus-amqp` ，这样即可在配置更新时通过队列通知客户端进行改变。
+
+NOTE: 许多启动时读取的参数无法通过推送通知动态的改变，例如 `server.port`
+
+=== 服务器端配置
+
+服务器端配置 `MONITOR_TYPE` 参数为 `"rabbitmq"` ，并配置rabbitmq的必要参数 `RABBITMQ_HOST` 、`RABBITMQ_PORT`、`RABBITMQ_USERNAME`、`RABBITMQ_PASSWORD` 之后，即可开启推送通知功能，自动注册到 rabbitmq。
+
+=== 客户端配置
+
+客户端添加依赖:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+</dependency>
+----
+
+之后将 `spring.cloud.stream.bindings.springCloudBusOutput.destination` 、 `spring.cloud.stream.bindings.springCloudBusInput.destination` 配置为和服务器端相同（服务器端默认为 `config-server-exchange`），即可和服务器端注册到同一个 rabbitmq队列中。
+
 
 == 源码地址
 
