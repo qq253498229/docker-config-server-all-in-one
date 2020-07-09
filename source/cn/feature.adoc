@@ -1,0 +1,121 @@
+== 功能介绍
+
+配置中心目前支持以下几个功能:
+
+- <<project_manage>>
+- <<env_manage>>
+- <<conf_manage>>
+- <<app_manage>>
+- <<notice_manage>>
+
+[#project_manage]
+=== 项目管理
+
+[#env_manage]
+=== 环境管理
+
+[#conf_manage]
+=== 配置管理
+
+[#app_manage]
+=== 应用管理
+
+[#notice_manage]
+=== 推送通知
+
+
+//
+//=== 创建配置并关联应用
+//
+//为了适配多项目，所以进入页面后首先需要创建一个项目。
+//
+//创建项目后可以根据需求创建对应的环境，以及每个环境中的配置。应用则代表具体的服务，在应用详情中将应用和配置进行关联，之后就可以进行客户端连接了。
+//
+//=== 客户端连接配置中心读取配置
+//
+//首先客户端需要在 `pom.xml` 中添加依赖:
+//
+//----
+//<dependency>
+//    <groupId>org.springframework.cloud</groupId>
+//    <artifactId>spring-cloud-starter-config</artifactId>
+//</dependency>
+//----
+//
+//NOTE: 该依赖的版本号应该从 SpringCloudDependencies 中继承
+//
+//然后创建 `bootstrap.yml` 文件:
+//
+//NOTE: `bootstrap.yml` 文件只在示例中使用，实际开发/部署时可以根据需求自行配置，只需在 `spring.profiles.active` 中包含对应的环境编号即可。
+//
+//----
+//spring:
+//  cloud:
+//    config:
+//      uri: http://localhost <!--1-->
+//  application:
+//    name: TestProject_UserService <!--2-->
+//  profiles:
+//    active: ProductionEnv <!--3-->
+//----
+//<1> 默认情况下，配置中心不使用任何注册中心，所以客户端应该使用 `地址+端口号` 的方式直连配置中心。
+//<2> 使用 `项目编号_应用编号` 的方式区分项目和应用
+//<3> `环境编号`
+//
+//之后启动客户端可以发现，已经从配置中心中读取了对应的配置:
+//
+//[source%nowrap]
+//----
+//  .   ____          _            __ _ _
+// /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+//( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+// \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+//  '  |____| .__|_| |_|_| |_\__, | / / / /
+// =========|_|==============|___/=/_/_/_/
+// :: Spring Boot ::        (v2.3.1.RELEASE)
+//
+//2020-06-18 15:40:45.422  INFO 61911 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://localhost
+//2020-06-18 15:40:45.553  WARN 61911 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Could not locate PropertySource: Could not extract response: no suitable HttpMessageConverter found for response type [class org.springframework.cloud.config.environment.Environment] and content type [text/html]
+//2020-06-18 15:40:45.556  INFO 61911 --- [           main] com.example.demo.DemoApplication         : The following profiles are active: ProductionEnv
+//2020-06-18 15:40:46.205  INFO 61911 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=9451707b-647f-3f81-8517-6d49f66f4a74
+//2020-06-18 15:40:46.405  INFO 61911 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 30006 (http)
+//2020-06-18 15:40:46.413  INFO 61911 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+//2020-06-18 15:40:46.413  INFO 61911 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.36]
+//2020-06-18 15:40:46.494  INFO 61911 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+//2020-06-18 15:40:46.495  INFO 61911 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 928 ms
+//2020-06-18 15:40:46.787  INFO 61911 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+//2020-06-18 15:40:47.180  INFO 61911 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+//2020-06-18 15:40:47.264  INFO 61911 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 30006 (http) with context path ''
+//2020-06-18 15:40:47.279  INFO 61911 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication in 2.716 seconds (JVM running for 3.584)
+//2020-06-18 15:40:47.539  INFO 61911 --- [on(1)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+//2020-06-18 15:40:47.539  INFO 61911 --- [on(1)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+//2020-06-18 15:40:47.542  INFO 61911 --- [on(2)-127.0.0.1] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://localhost
+//2020-06-18 15:40:47.548  INFO 61911 --- [on(1)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+//2020-06-18 15:40:47.549  WARN 61911 --- [on(2)-127.0.0.1] c.c.c.ConfigServicePropertySourceLocator : Could not locate PropertySource: Could not extract response: no suitable HttpMessageConverter found for response type [class org.springframework.cloud.config.environment.Environment] and content type [text/html]
+//----
+//
+//=== 推送通知功能
+//
+//推送通知功能可以在配置发生改变后，实时的通知客户端动态的读取最新配置。
+//
+//使用推送通知功能需要将服务器端和客户端连接到同一个 rabbitmq 队列，然后依赖 `spring-cloud-starter-bus-amqp` ，这样即可在配置更新时通过队列通知客户端进行改变。
+//
+//NOTE: 许多启动时读取的参数无法通过推送通知动态的改变，例如 `server.port`
+//
+//==== 服务器端配置
+//
+//服务器端配置 `MONITOR_TYPE` 参数为 `"rabbitmq"` ，并配置rabbitmq的必要参数 `RABBITMQ_HOST` 、`RABBITMQ_PORT`、`RABBITMQ_USERNAME`、`RABBITMQ_PASSWORD` 之后，即可开启推送通知功能，自动注册到 rabbitmq。
+//
+//==== 客户端配置
+//
+//客户端添加依赖:
+//
+//[source,xml]
+//----
+//<dependency>
+//    <groupId>org.springframework.cloud</groupId>
+//    <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+//</dependency>
+//----
+//
+//之后将 `spring.cloud.stream.bindings.springCloudBusOutput.destination` 、 `spring.cloud.stream.bindings.springCloudBusInput.destination` 配置为和服务器端相同（服务器端默认为 `config-server-exchange`），即可和服务器端注册到同一个 rabbitmq队列中。

@@ -5,13 +5,21 @@ services:
     build: .
     environment:
       MYSQL_HOST: mysql
+      MONITOR_TYPE: rabbitmq
+      RABBITMQ_HOST: rabbitmq
+    depends_on:
+      - mysql
+      - rabbitmq
     ports:
       - "80:80"
+  rabbitmq:
+    image: rabbitmq:3.7.15-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
   mysql:
     image: mysql:8.0.20
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - "./schema.sql:/docker-entrypoint-initdb.d/schema.sql"
-    ports:
-      - "3306:3306"

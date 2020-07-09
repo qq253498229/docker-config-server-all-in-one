@@ -1,0 +1,101 @@
+== 附录
+
+快速开始中使用的镜像，本质上就是提取前后端镜像中的业务代码，打包成一个新的镜像。 所以后端的配置同样可以套用到快速开始中。
+
+后端使用了 `SpringBoot 2.3.1.RELEASE`、 `SpringCloud Hoxton.SR5` 版本开发，数据库使用的是 `MySQL`，注册中心支持 `Eureka` 和 `Consul`，推送通知队列使用的时 `RabbitMQ`。如果没有满足您的需求，可以在 <<contribution>> 中查看并提交issues或自行修改。
+
+前端使用了 https://angular.cn/[Angular 9] 、 https://ng.ant.design/[NG-ZORRO]， 以及 https://github.com/brtnshrdr/angular2-hotkeys#readme[angular2-hotkeys] 、 https://lodash.com/[lodash] 等。
+
+=== 附录：后端参数
+
+.后端支持参数
+[%autowidth]
+|===
+| 参数名 | 默认值 | 说明
+
+|SERVER_PORT
+|8888
+|后端暴露的端口
+
+|MYSQL_HOST
+|localhost
+|数据库地址
+
+|MYSQL_PORT
+|3306
+|数据库端口号
+
+|MYSQL_DATABASE
+|application_configuration
+|数据库名
+
+|MYSQL_USERNAME
+|root
+|数据库登录名
+
+|MYSQL_PASSWORD
+|root
+|数据库登录密码
+
+|APPLICATION_NAME
+|config-server
+|SpringBoot中的 `spring.application.name`
+
+|DISCOVERY_TYPE
+|url
+|注册中心类型，`url/eureka/consul`，其中 url 表示不使用注册中心
+
+|CONSUL_TOKEN
+|B595BC8E-DE44-4510-82D7-ECF5657F4D4D
+|当 DISCOVERY_TYPE 为 `consul` 时生效，表示 consul的 `acl_token`
+
+|CONSUL_HOST
+|8500
+|当 DISCOVERY_TYPE 为 `consul` 时生效，表示 consul的地址
+
+|CONSUL_PORT
+|8500
+|当 DISCOVERY_TYPE 为 `consul` 时生效，表示 consul的端口号
+
+|EUREKA_SERVICE_URL
+|http://admin:admin@localhost:8761/eureka/
+|当 DISCOVERY_TYPE 为 `eureka` 时生效，表示 eureka 的注册地址
+
+|MONITOR_TYPE
+| none
+| 通知推送类型，`none/rabbitmq`，其中 none 表示不使用通知推送功能
+
+|RABBITMQ_HOST
+| localhost
+| 当 MONITOR_TYPE 为 `rabbitmq` 时生效，表示 rabbitmq 的地址
+
+|RABBITMQ_PORT
+| 5672
+| 当 MONITOR_TYPE 为 `rabbitmq` 时生效，表示 rabbitmq 的端口号
+
+|RABBITMQ_USERNAME
+| admin
+| 当 MONITOR_TYPE 为 `rabbitmq` 时生效，表示 rabbitmq 的用户名
+
+|RABBITMQ_PASSWORD
+| admin
+| 当 MONITOR_TYPE 为 `rabbitmq` 时生效，表示 rabbitmq 的密码
+
+|RABBITMQ_EXCHANGE_NAME
+| config-server-exchange
+| 当 MONITOR_TYPE 为 `rabbitmq` 时生效，表示 rabbitmq 的交换机名称
+|===
+
+=== 附录：前端参数
+
+.前端支持参数
+[%autowidth]
+|===
+| 参数名 | 默认值 | 说明
+
+|BACKEND_PATH
+|http://config:8888
+|Nginx中反向代理的后端地址
+|===
+
+NOTE: 注意这个参数在快速启动中不生效，因为前后端使用的是同一个容器，所以固定为 http://localhost:8888

@@ -740,38 +740,44 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_快速开始">快速开始</a>
+<li><a href="#_快速开始">1. 快速开始</a></li>
+<li><a href="#_功能介绍">2. 功能介绍</a>
 <ul class="sectlevel2">
-<li><a href="#_启动配置中心">启动配置中心</a></li>
-<li><a href="#_创建配置并关联应用">创建配置并关联应用</a></li>
-<li><a href="#_客户端连接配置中心读取配置">客户端连接配置中心读取配置</a></li>
+<li><a href="#project_manage">2.1. 项目管理</a></li>
+<li><a href="#env_manage">2.2. 环境管理</a></li>
+<li><a href="#conf_manage">2.3. 配置管理</a></li>
+<li><a href="#app_manage">2.4. 应用管理</a></li>
+<li><a href="#notice_manage">2.5. 推送通知</a></li>
 </ul>
 </li>
-<li><a href="#_配置中心参数">配置中心参数</a>
+<li><a href="#_附录">3. 附录</a>
 <ul class="sectlevel2">
-<li><a href="#_后端参数">后端参数</a></li>
-<li><a href="#_前端参数">前端参数</a></li>
+<li><a href="#_附录后端参数">3.1. 附录：后端参数</a></li>
+<li><a href="#_附录前端参数">3.2. 附录：前端参数</a></li>
 </ul>
 </li>
-<li><a href="#_推送通知功能">推送通知功能</a>
-<ul class="sectlevel2">
-<li><a href="#_服务器端配置">服务器端配置</a></li>
-<li><a href="#_客户端配置">客户端配置</a></li>
-</ul>
-</li>
-<li><a href="#_源码地址">源码地址</a></li>
-<li><a href="#_开源协议">开源协议</a></li>
-<li><a href="#_更新日志">更新日志</a></li>
-<li><a href="#contribution">贡献指南</a></li>
+<li><a href="#_源码地址">4. 源码地址</a></li>
+<li><a href="#_开源协议">5. 开源协议</a></li>
+<li><a href="#_更新日志">6. 更新日志</a></li>
+<li><a href="#contribution">7. 贡献指南</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_快速开始">快速开始</h2>
+<h2 id="_快速开始">1. 快速开始</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>本项目最快的启动方式就是使用 <a href="https://www.docker.com/"><code>docker</code></a>，并且 <code>docker</code> 官方提供的 <a href="https://docs.docker.com/compose/"><code>docker-compose</code></a> 更会简化部署流程。</p>
+<p>本项目最快的启动方式就是使用 <a href="https://docs.docker.com"><code>docker</code></a> 以及 <code>docker</code> 官方提供的 <a href="https://docs.docker.com/compose/"><code>docker-compose</code></a> 。</p>
+</div>
+<div class="paragraph">
+<p>前往仓库 <a href="https://gitee.com/consolelog/docker-config-server-all-in-one" class="bare">https://gitee.com/consolelog/docker-config-server-all-in-one</a> 中下载 <a href="https://gitee.com/consolelog/docker-config-server-all-in-one/raw/master/docker-compose.yml"><code>docker-compose.yml</code></a> 以及 <a href="https://gitee.com/consolelog/docker-config-server-all-in-one/raw/master/schema.sql"><code>schema.sql</code></a> 两个文件</p>
+</div>
+<div class="paragraph">
+<p>将这两个文件放到同一个目录中，并执行 <code>docker-compose up -d</code> 命令启动服务</p>
+</div>
+<div class="paragraph">
+<p>启动后即可通过 <a href="http://localhost" class="bare">http://localhost</a> 地址访问并管理配置中心了</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -785,137 +791,57 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="_启动配置中心">启动配置中心</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_功能介绍">2. 功能介绍</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>使用本项目提供的 <a href="https://raw.githubusercontent.com/qq253498229/docker-config-server-all-in-one/master/docker-compose.yml"><code>docker-compose</code></a>(其中 <a href="https://raw.githubusercontent.com/qq253498229/docker-config-server-all-in-one/master/schema.sql"><code>schema.sql</code></a>必须和 <code>docker-compose.yml</code> 放在同一目录) 可以一键创建配置中心后端以及依赖的数据库，并初始化数据库结构。</p>
+<p>配置中心目前支持以下几个功能:</p>
 </div>
-<div class="paragraph">
-<p>启动服务后即可访问 <a href="http://localhost" class="bare">http://localhost</a> 来管理配置中心了</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_创建配置并关联应用">创建配置并关联应用</h3>
-<div class="paragraph">
-<p>为了适配多项目，所以进入页面后首先需要创建一个项目。</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="picture/1.png" alt="1">
-</div>
-</div>
-<div class="paragraph">
-<p>创建项目后可以根据需求创建对应的环境，以及每个环境中的配置。应用则代表具体的服务，在应用详情中将应用和配置进行关联，之后就可以进行客户端连接了。</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="picture/2.png" alt="2">
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_客户端连接配置中心读取配置">客户端连接配置中心读取配置</h3>
-<div class="paragraph">
-<p>首先客户端需要在 <code>pom.xml</code> 中添加依赖:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-cloud-starter-config&lt;/artifactId&gt;
-&lt;/dependency&gt;</pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-该依赖的版本号应该从 SpringCloudDependencies 中继承
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>然后创建 <code>bootstrap.yml</code> 文件:</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<code>bootstrap.yml</code> 文件只在示例中使用，实际开发/部署时可以根据需求自行配置，只需在 <code>spring.profiles.active</code> 中包含对应的环境编号即可。
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>spring:
-  cloud:
-    config:
-      uri: http://localhost <b class="conum">(1)</b>
-  application:
-    name: TestProject_UserService <b class="conum">(2)</b>
-  profiles:
-    active: ProductionEnv <b class="conum">(3)</b></pre>
-</div>
-</div>
-<div class="colist arabic">
-<ol>
+<div class="ulist">
+<ul>
 <li>
-<p>默认情况下，配置中心不使用任何注册中心，所以客户端应该使用 <code>地址+端口号</code> 的方式直连配置中心。</p>
+<p><a href="#project_manage">项目管理</a></p>
 </li>
 <li>
-<p>使用 <code>项目编号_应用编号</code> 的方式区分项目和应用</p>
+<p><a href="#env_manage">环境管理</a></p>
 </li>
 <li>
-<p><code>环境编号</code></p>
+<p><a href="#conf_manage">配置管理</a></p>
 </li>
-</ol>
+<li>
+<p><a href="#app_manage">应用管理</a></p>
+</li>
+<li>
+<p><a href="#notice_manage">推送通知</a></p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>之后启动客户端可以发现，已经从配置中心中读取了对应的配置:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::        (v2.3.1.RELEASE)
+<div class="sect2">
+<h3 id="project_manage">2.1. 项目管理</h3>
 
-2020-06-18 15:40:45.422  INFO 61911 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://localhost
-2020-06-18 15:40:45.553  WARN 61911 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Could not locate PropertySource: Could not extract response: no suitable HttpMessageConverter found for response type [class org.springframework.cloud.config.environment.Environment] and content type [text/html]
-2020-06-18 15:40:45.556  INFO 61911 --- [           main] com.example.demo.DemoApplication         : The following profiles are active: ProductionEnv
-2020-06-18 15:40:46.205  INFO 61911 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=9451707b-647f-3f81-8517-6d49f66f4a74
-2020-06-18 15:40:46.405  INFO 61911 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 30006 (http)
-2020-06-18 15:40:46.413  INFO 61911 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-06-18 15:40:46.413  INFO 61911 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.36]
-2020-06-18 15:40:46.494  INFO 61911 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-06-18 15:40:46.495  INFO 61911 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 928 ms
-2020-06-18 15:40:46.787  INFO 61911 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2020-06-18 15:40:47.180  INFO 61911 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
-2020-06-18 15:40:47.264  INFO 61911 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 30006 (http) with context path ''
-2020-06-18 15:40:47.279  INFO 61911 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication in 2.716 seconds (JVM running for 3.584)
-2020-06-18 15:40:47.539  INFO 61911 --- [on(1)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-06-18 15:40:47.539  INFO 61911 --- [on(1)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-06-18 15:40:47.542  INFO 61911 --- [on(2)-127.0.0.1] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://localhost
-2020-06-18 15:40:47.548  INFO 61911 --- [on(1)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
-2020-06-18 15:40:47.549  WARN 61911 --- [on(2)-127.0.0.1] c.c.c.ConfigServicePropertySourceLocator : Could not locate PropertySource: Could not extract response: no suitable HttpMessageConverter found for response type [class org.springframework.cloud.config.environment.Environment] and content type [text/html]</code></pre>
 </div>
+<div class="sect2">
+<h3 id="env_manage">2.2. 环境管理</h3>
+
 </div>
+<div class="sect2">
+<h3 id="conf_manage">2.3. 配置管理</h3>
+
+</div>
+<div class="sect2">
+<h3 id="app_manage">2.4. 应用管理</h3>
+
+</div>
+<div class="sect2">
+<h3 id="notice_manage">2.5. 推送通知</h3>
+
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_配置中心参数">配置中心参数</h2>
+<h2 id="_附录">3. 附录</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>快速开始中使用的镜像，本质上就是提取前后端镜像中的业务代码，打包成一个新的镜像。 所以后端的配置同样可以套用到快速开始中。</p>
@@ -927,7 +853,7 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 <p>前端使用了 <a href="https://angular.cn/">Angular 9</a> 、 <a href="https://ng.ant.design/">NG-ZORRO</a>， 以及 <a href="https://github.com/brtnshrdr/angular2-hotkeys#readme">angular2-hotkeys</a> 、 <a href="https://lodash.com/">lodash</a> 等。</p>
 </div>
 <div class="sect2">
-<h3 id="_后端参数">后端参数</h3>
+<h3 id="_附录后端参数">3.1. 附录：后端参数</h3>
 <table class="tableblock frame-all grid-all fit-content">
 <caption class="title">Table 1. 后端支持参数</caption>
 <colgroup>
@@ -1037,7 +963,7 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 </table>
 </div>
 <div class="sect2">
-<h3 id="_前端参数">前端参数</h3>
+<h3 id="_附录前端参数">3.2. 附录：前端参数</h3>
 <table class="tableblock frame-all grid-all fit-content">
 <caption class="title">Table 2. 前端支持参数</caption>
 <colgroup>
@@ -1076,56 +1002,10 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 </div>
 </div>
 <div class="sect1">
-<h2 id="_推送通知功能">推送通知功能</h2>
+<h2 id="_源码地址">4. 源码地址</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>推送通知功能可以在配置发生改变后，实时的通知客户端动态的读取最新配置。</p>
-</div>
-<div class="paragraph">
-<p>使用推送通知功能需要将服务器端和客户端连接到同一个 rabbitmq 队列，然后依赖 <code>spring-cloud-starter-bus-amqp</code> ，这样即可在配置更新时通过队列通知客户端进行改变。</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-许多启动时读取的参数无法通过推送通知动态的改变，例如 <code>server.port</code>
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_服务器端配置">服务器端配置</h3>
-<div class="paragraph">
-<p>服务器端配置 <code>MONITOR_TYPE</code> 参数为 <code>"rabbitmq"</code> ，并配置rabbitmq的必要参数 <code>RABBITMQ_HOST</code> 、<code>RABBITMQ_PORT</code>、<code>RABBITMQ_USERNAME</code>、<code>RABBITMQ_PASSWORD</code> 之后，即可开启推送通知功能，自动注册到 rabbitmq。</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_客户端配置">客户端配置</h3>
-<div class="paragraph">
-<p>客户端添加依赖:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-cloud-starter-bus-amqp&lt;/artifactId&gt;
-&lt;/dependency&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>之后将 <code>spring.cloud.stream.bindings.springCloudBusOutput.destination</code> 、 <code>spring.cloud.stream.bindings.springCloudBusInput.destination</code> 配置为和服务器端相同（服务器端默认为 <code>config-server-exchange</code>），即可和服务器端注册到同一个 rabbitmq队列中。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_源码地址">源码地址</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>源码托管在 <a href="https://gitee.com/">Gitee</a> 中：</p>
+<p>源码托管在 <a href="https://gitee.com">Gitee</a> 中：</p>
 </div>
 <div class="paragraph">
 <p><a href="https://gitee.com/consolelog/codeforfun-config-server-frontend">Gitee-配置中心-前端</a>、
@@ -1143,7 +1023,7 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 </div>
 </div>
 <div class="sect1">
-<h2 id="_开源协议">开源协议</h2>
+<h2 id="_开源协议">5. 开源协议</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>本项目遵循 MIT 协议，虽然我也不知道这个协议具体是啥意思，但是原则上你可以随便使用本项目，当然前提是不触犯法律: <a href="http://xingfa.org/">中华人民共和国刑法</a> 、 <a href="https://paperclip.feishu.cn/file/boxcnZGTyENVDRcBIRUlFtM0YVf">中华人民共和国民法典(草案)</a>。</p>
@@ -1151,15 +1031,21 @@ table tr.even, table tr.alt, table tr:nth-child(even) { background: #f5f9f9; }
 </div>
 </div>
 <div class="sect1">
-<h2 id="_更新日志">更新日志</h2>
+<h2 id="_更新日志">6. 更新日志</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>暂无</p>
+<p>懒得写了，以后再说吧</p>
+</div>
+<div class="paragraph">
+<p><a href="https://gitee.com/consolelog/codeforfun-config-server/commits/master">后端提交记录</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://gitee.com/consolelog/codeforfun-config-server-frontend/commits/master">前端提交记录</a></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="contribution">贡献指南</h2>
+<h2 id="contribution">7. 贡献指南</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>你可以在 <a href="https://gitee.com/consolelog/codeforfun-config-server-frontend/issues">前端</a> 、 <a href="https://gitee.com/consolelog/codeforfun-config-server/issues">后端</a> 以及 <a href="https://gitee.com/consolelog/docker-config-server-all-in-one/issues">快速启动</a> 的 issues 列表中提交 issue。</p>
