@@ -1,7 +1,7 @@
 version: "3"
 services:
   config-server-all:
-    image: registry.cn-beijing.aliyuncs.com/codeforfun/config-server-all-in-one:1.0.6
+    image: registry.cn-beijing.aliyuncs.com/codeforfun/config-server-all-in-one:1.0.7
     build: .
     environment:
       MYSQL_HOST: mysql
@@ -17,9 +17,14 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
+    ports:
+      - "5672:5672"
+      - "15672:15672"
   mysql:
     image: mysql:8.0.20
     environment:
       MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
     volumes:
       - "./schema.sql:/docker-entrypoint-initdb.d/schema.sql"

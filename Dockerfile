@@ -1,6 +1,6 @@
-FROM registry.cn-beijing.aliyuncs.com/codeforfun/config-server:1.0.6
+FROM registry.cn-beijing.aliyuncs.com/codeforfun/config-server:1.0.7
 
-FROM registry.cn-beijing.aliyuncs.com/codeforfun/config-server-frontend:1.0.6
+FROM registry.cn-beijing.aliyuncs.com/codeforfun/config-server-frontend:1.0.7
 
 FROM registry.cn-beijing.aliyuncs.com/codeforfun/docker-supervisor-nginx-java:latest
 ENV LANG C.UTF-8
